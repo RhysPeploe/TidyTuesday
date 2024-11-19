@@ -1,0 +1,41 @@
+library(tidyverse)
+library(corrplot)
+library(gganimate)
+library(GGally)
+
+tuesdata <- tidytuesdayR::tt_load(2024, week = 47)
+
+episode_metrics <- tuesdata$episode_metrics %>% 
+  mutate(season_ep = str_c(season, ".", episode))
+
+corrplot(cor(episode_metrics %>% select(-season_ep)))
+
+sysfonts::font_add_google(name = "Pangolin",family = "Static")
+showtext_auto()
+
+plot <- ggplot(transform(episode_metrics, ind = 1:nrow(episode_metrics))) +
+  geom_line(aes(x = episode,y = exclamation_ratio, group = season, colour = season), 
+            linewidth = 1.1)+
+  coord_polar() +
+  theme(plot.background = element_rect(colour = "#ffff49", fill = "#ffff49"),
+        panel.background = element_rect(colour = "#ffff49", fill = "#ffff49"),
+        legend.background = element_rect(colour = "#ffff49", fill = "#ffff49"),
+        panel.grid = element_line(colour = "#ff0c15"),
+        axis.title.y = element_text(colour = "#ff0c15", face = "bold", size = 14, family = "Static"),
+        axis.title.x = element_text(colour = "black", face = "bold", size = 14, family = "Static"),
+        axis.text = element_text(colour = "#ff0c15", face = "bold", family = "Static"),
+        axis.text.x = element_text(colour = "black", size = 12, family = "Static"),
+        legend.title = element_text(colour = "#ff0c15", face = "bold", family = "Static"),
+        plot.title = element_text(colour = "#ff0c15", face = "bold", size = 14, family = "Static"),
+        plot.title.position = "panel"
+          ) +
+  scale_x_continuous(breaks = c(1, 5, 10, 15, 20)) +
+  scale_color_gradient(high = "#f372a8", low = "#9eb5de") +
+  labs(color = "Season",
+       x = "Episode",
+       y = "Exclamation Ratio",
+       title = "Exclamation Ratio in Bob's Burgers"
+       ) +
+  transition_reveal(ind)
+
+anim_save("2024-11-19.gif")
