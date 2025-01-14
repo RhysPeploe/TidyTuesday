@@ -3,7 +3,6 @@ library(tidyverse)
 library(stopwords)
 library(admiral)
 library(VennDiagram)
-library(RColorBrewer)
 
 tuesdata <- tidytuesdayR::tt_load('2025-01-14')
 conf2023 <- tuesdata$conf2023
