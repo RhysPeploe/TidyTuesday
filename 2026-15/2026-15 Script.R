@@ -45,7 +45,7 @@ ggplot(bird_ship %>%
   stat_bin(binwidth = 20, geom = "text", colour = "white", mapping = aes(label =..count..),
            boundary = 0, position = position_stack(vjust = 0.8))
 
-ggsave("TidyTuesday/2026-15/ship_direction_polar.tif", width = 12.8, height = 8.16)
+ggsave("TidyTuesday/2026-15/ship_direction_polar.png", width = 12.8, height = 8.16)
 
 ggplot(bird_ship %>% 
          tabyl(wind_direction), aes(x = wind_direction))+
@@ -64,4 +64,4 @@ ggplot(bird_ship %>%
   stat_bin(binwidth = 20, geom = "text", colour = "white", mapping = aes(label =..count..),
            boundary = 0, position = position_stack(vjust = 0.8))
 
-ggsave("TidyTuesday/2026-15/wind_direction_polar.tif", width = 12.8, height = 8.16)
+ggsave("TidyTuesday/2026-15/wind_direction_polar.png", width = 12.8, height = 8.16)
