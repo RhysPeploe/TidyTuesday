@@ -1,1 +1,1 @@
-A collection of TidyTuesday my projects!
+A collection of my TidyTuesday projects!
